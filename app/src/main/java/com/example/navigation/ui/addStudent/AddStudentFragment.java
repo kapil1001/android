@@ -16,36 +16,89 @@ import androidx.fragment.app.Fragment;
 import com.example.navigation.R;
 
 public class AddStudentFragment extends Fragment {
-    private Button buttonInsert;
-    private TextView fullName;
-    private TextView Age;
-    private TextView Address;
-    private RadioButton btnMale;
-    private RadioButton btnFemale;
-    private RadioButton btnOthers;
+    private Button insertBtn;
+    private TextView fullnameET;
+    private TextView ageET;
+    private TextView addressET;
+    private RadioGroup genderGroup;
+    private String gender;
+//    private RadioButton btnMale;
+//    private RadioButton btnFemale;
+//    private RadioButton btnOthers;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_student, container, false);
 
-        fullName = root.findViewById(R.id.fname);
-        Age = root.findViewById(R.id.age);
-        Address = root.findViewById(R.id.address);
-        btnMale = root.findViewById(R.id.btn_male);
-        btnFemale = root.findViewById(R.id.btn_female);
-        btnOthers = root.findViewById(R.id.btn_other);
-        buttonInsert = root.findViewById(R.id.btn_insert);
+        fullnameET = root.findViewById(R.id.fname);
+        ageET = root.findViewById(R.id.age);
+        addressET = root.findViewById(R.id.address);
+        genderGroup = root.findViewById(R.id.radiogroup);
+//        btnMale = root.findViewById(R.id.btn_male);
+//        btnFemale = root.findViewById(R.id.btn_female);
+//        btnOthers = root.findViewById(R.id.btn_other);
+        insertBtn = root.findViewById(R.id.btn_insert);
 
-        buttonInsert.setOnClickListener(new View.OnClickListener() {
+        RadioGroup.OnCheckedChangeListener genderChangeListener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.btn_male: {
+                        gender = "Male";
+                        break;
+                    }
+                    case R.id.btn_female: {
+                        gender = "Female";
+                        break;
+                    }
+                    case R.id.btn_other: {
+                        gender = "Others";
+                        break;
+                    }
+                }
+            }
+        };
+
+        genderGroup.setOnCheckedChangeListener(genderChangeListener);
+
+        insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate();
+                if(validate()){
+                    Toast.makeText(requireContext(), "Added Successfully", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return root;
     }
 
-    private void validate(){
+    private boolean validate() {
+        boolean isValid = true;
+        String name = fullnameET.getText().toString().trim();
+        int age = 0;
+        if (ageET.getText() != null && !ageET.getText().toString().isEmpty())
+            age = Integer.parseInt(ageET.getText().toString().trim());
 
+        String address = addressET.getText().toString().trim();
+
+        if (name.isEmpty()) {
+            fullnameET.setError("Please Enter FullName");
+            isValid = false;
+        }
+        if (age == 0) {
+            ageET.setError("Please give valid age");
+            isValid = false;
+        }
+        if (address.isEmpty()) {
+            addressET.setError("Please write your address");
+            isValid = false;
+        }
+        if (gender == null) {
+            Toast.makeText(requireContext(), "Please select one Gender", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        return isValid;
     }
+
 }

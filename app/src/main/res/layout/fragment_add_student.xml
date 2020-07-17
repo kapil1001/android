@@ -50,9 +50,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Age"
-            android:inputType="text"
+            android:inputType="number"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/sel_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Gender"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="italic"/>
 
         <RadioGroup
             android:id="@+id/radiogroup"
@@ -60,15 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             >
-
-            <TextView
-                android:id="@+id/sel_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select Gender"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textStyle="italic"/>
 
             <RadioButton
                 android:id="@+id/btn_male"

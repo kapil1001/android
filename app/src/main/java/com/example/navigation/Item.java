@@ -15,6 +15,7 @@ public class Item {
         Text3 = text3;
     }
 
+
     public int getImage() {
         return Image;
     }
@@ -34,5 +35,7 @@ public class Item {
     public String getText3() {
         return Text3;
     }
+
+
 
 }

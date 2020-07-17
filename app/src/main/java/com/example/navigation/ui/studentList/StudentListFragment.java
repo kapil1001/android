@@ -17,7 +17,6 @@ import com.example.navigation.ItemAdapter;
 import java.util.ArrayList;
 
 public class StudentListFragment extends Fragment {
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,10 +28,9 @@ public class StudentListFragment extends Fragment {
 
         RecyclerView mRecyclerView = root.findViewById(R.id.recyclerView);
         ItemAdapter recyclerViewAdapter = new ItemAdapter(List);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         mRecyclerView.setAdapter(recyclerViewAdapter);
-
+        
         return root;
     }
 }
