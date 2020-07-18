@@ -1,14 +1,24 @@
 package com.example.navigation;
 
 public class Item {
+
+    private int id;
     private int Image;
     private String Text1;
     private int Age;
     private String Text2;
     private String Text3;
 
-    public Item(int image, String text1, int age, String text2, String text3){
-        Image = image;
+    public Item(int id, String text1, int age, String text2, String text3){
+        this.id = id;
+        if(text3.toLowerCase().equals("male")){
+            Image = R.mipmap.boy;
+        }else if(text3.toLowerCase().equals("female")){
+            Image = R.mipmap.girl;
+        }else if(text3.toLowerCase().equals("others")){
+            Image = R.mipmap.other;
+        }
+
         Text1 = text1;
         Age = age;
         Text2 = text2;
@@ -34,6 +44,14 @@ public class Item {
 
     public String getText3() {
         return Text3;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.navigation.Item;
+import com.example.navigation.ItemGiver;
 import com.example.navigation.R;
 
 public class AddStudentFragment extends Fragment {
@@ -22,9 +24,9 @@ public class AddStudentFragment extends Fragment {
     private TextView addressET;
     private RadioGroup genderGroup;
     private String gender;
-//    private RadioButton btnMale;
-//    private RadioButton btnFemale;
-//    private RadioButton btnOthers;
+    private RadioButton btnMale;
+    private RadioButton btnFemale;
+    private RadioButton btnOthers;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,9 +37,9 @@ public class AddStudentFragment extends Fragment {
         ageET = root.findViewById(R.id.age);
         addressET = root.findViewById(R.id.address);
         genderGroup = root.findViewById(R.id.radiogroup);
-//        btnMale = root.findViewById(R.id.btn_male);
-//        btnFemale = root.findViewById(R.id.btn_female);
-//        btnOthers = root.findViewById(R.id.btn_other);
+        btnMale = root.findViewById(R.id.btn_male);
+        btnFemale = root.findViewById(R.id.btn_female);
+        btnOthers = root.findViewById(R.id.btn_other);
         insertBtn = root.findViewById(R.id.btn_insert);
 
         RadioGroup.OnCheckedChangeListener genderChangeListener = new RadioGroup.OnCheckedChangeListener() {
@@ -66,6 +68,7 @@ public class AddStudentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(validate()){
+                    additem();
                     Toast.makeText(requireContext(), "Added Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -99,6 +102,23 @@ public class AddStudentFragment extends Fragment {
             isValid = false;
         }
         return isValid;
+    }
+
+    public void additem(){
+        String name = fullnameET.getText().toString().trim();
+        int age = Integer.parseInt(ageET.getText().toString().trim());
+        String address = addressET.getText().toString().trim();
+        String gender = null;
+
+        if(btnMale.isChecked()){
+            gender = "male";
+        }else if(btnFemale.isChecked()){
+            gender = "female";
+        }else if(btnOthers.isChecked()){
+            gender = "others";
+        }
+        Item item = new Item(0, name, age, address, gender);
+        ItemGiver.getInstance().addItem(item);
     }
 
 }
